@@ -1,45 +1,47 @@
 import React from "react";
+import { LuArrowUpRight } from "react-icons/lu";
 
 function ServiceCard({ service }) {
   const { name, description, icon, link } = service;
 
   return (
-    <div className="w-[30%] h-[42%] bg-gradient-to-r from-white to-gray-100 shadow-xl rounded-xl p-6 flex flex-col justify-between items-center text-center mx-4 my-6 hover:scale-105 transform transition duration-300">
-      {/* Icon/Image */}
-      <div className="w-20 h-20 mb-4 bg-blue-100 rounded-full flex items-center justify-center shadow-md">
-        <img
-          src={icon}
-          alt={`${name} icon`}
-          className="w-12 h-12 object-contain"
-        />
+    <div
+      className="flex flex-col items-center bg-[#212121] w-full md:w-[28vw] p-6 rounded-lg shadow-xl 
+                 transition-transform duration-300 hover:scale-105 hover:shadow-2xl hover:translate-y-2"
+    >
+      {/* Card Header */}
+      <div className="flex flex-col items-center text-center mb-8">
+        <h1 className="text-xl md:text-2xl font-medium text-white mb-4 
+                      shadow-md">{name}</h1>
+        <p className="text-sm md:text-base text-[#d1d5db]">{description}</p>
       </div>
 
-      {/* Service Name */}
-      <h3 className="text-2xl font-extrabold text-gray-800 mb-3 tracking-tight hover:text-blue-600 transition duration-300">
-        {name}
-      </h3>
+      {/* Circular Icon Section with Gradient Overlay */}
+      <div className="relative flex justify-center items-center mb-6">
+        <div className="w-32 h-32 rounded-full flex justify-center items-center border-4 border-[#22625c] 
+                        hover:border-[#86B6F6] transition-all duration-300 group">
+          <div className="w-28 h-28 rounded-full flex justify-center items-center border-4 border-[#22625c] 
+                          hover:border-[#86B6F6] transition-all duration-300 group-hover:bg-gradient-to-r from-[#22625c] to-[#1a4f46]">
+            <img className="h-16 w-16 object-contain rounded-full group-hover:opacity-90 transition-opacity duration-300" 
+                 src={icon} alt={`${name} icon`} />
+          </div>
+        </div>
+      </div>
 
-      {/* Service Description */}
-      <p className="text-gray-600 text-sm mb-6 px-3">
-        {description}
-      </p>
-
-      {/* Action Button */}
+      {/* Call-to-Action Button with Tooltip */}
       <a
         href={link}
-        className="flex items-center justify-center text-white bg-blue-500 hover:bg-blue-600 font-medium py-2 px-4 rounded-full shadow-md transition duration-300"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-6 flex items-center justify-center w-12 h-12 bg-[#22625c] rounded-full 
+                   text-white hover:bg-[#5297f2] transition-colors duration-300 relative group"
       >
-        Learn More
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-5 w-5 ml-2"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          strokeWidth={2}
-        >
-          <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-        </svg>
+        <LuArrowUpRight size={30} />
+        <span className="absolute bottom-16 left-1/2 transform -translate-x-1/2 
+                         text-xs text-white bg-black p-2 rounded-lg opacity-0 group-hover:opacity-100 
+                         transition-opacity duration-300">
+          View Details
+        </span>
       </a>
     </div>
   );

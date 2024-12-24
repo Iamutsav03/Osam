@@ -1,101 +1,74 @@
 import React, { useState } from "react";
-import logo from "../assets/logo.png"; // Adjust the path based on your file structure
+import logo from "../assets/logo.png"; // Your logo
+import { IoPerson } from "react-icons/io5";
+import { HiOutlineMenuAlt3 } from "react-icons/hi";
+import { MdClose } from "react-icons/md";
 
 function Nav() {
-  const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
-  const sections = [
-    "Home",
-    "Services",
-    "Our Work",
-    "Team",
-    "Contact",
-    "About Us",
-  ];
+  const toggleMenu = () => setMenuOpen(!menuOpen);
 
   return (
-    <nav className="bg-gray-800 text-white sticky top-0 z-50 shadow-lg">
-      <div className="container mx-auto flex items-center justify-between py-4 px-6">
-        {/* Logo Section */}
-        <div className="flex items-center">
-          <img
-            src={logo}
-            alt="Logo"
-            className="h-12 w-auto object-contain mr-3"
-          />
+    <div className="w-full h-20 fixed top-0 z-50 bg-gradient-to-r from-[#EEF5FF] via-[#EEF5FF] to-[#EEF5FF] shadow-md">
+      <div className="h-full container mx-auto px-6 flex items-center justify-between">
+        {/* Logo */}
+        <div className="flex items-center cursor-pointer">
+          <img src={logo} alt="Logo" className="h-12 md:h-24 object-contain" />
         </div>
 
-        {/* Desktop Navigation Links */}
-        <div className="hidden md:flex space-x-8">
-          {sections.map((section, index) => (
-            <a
-              key={index}
-              href={`#${section.toLowerCase().replace(/\s+/g, "-")}`}
-              className="hover:text-blue-400 transition duration-300"
-            >
-              {section}
-            </a>
-          ))}
+        {/* Links */}
+        <div className="hidden md:flex gap-8 text-[#026261] font-bold text-lg"> {/* Increased text size here */}
+          {["Home", "Services", "Our Work", "Team", "Contact", "About Us"].map(
+            (section, index) => (
+              <a
+                key={index}
+                href={`#${section.toLowerCase().replace(/\s+/g, "-")}`}
+                className="relative group"
+              >
+                {section}
+                <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#026261] transition-all group-hover:w-full"></span>
+              </a>
+            )
+          )}
         </div>
 
-        {/* Registration/CTA Button */}
-        <div className="hidden md:flex">
-          <a
-            href="#register"
-            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-6 rounded-full shadow-md transition duration-300"
-          >
-            Register
-          </a>
+        {/* Profile Icon for Desktop */}
+        <div className="hidden md:flex items-center justify-end gap-6">
+          <span className="h-10 w-10 flex justify-center items-center hover:bg-black bg-[#026261] rounded-full">
+            <IoPerson size={20} className="text-white" />
+          </span>
         </div>
 
         {/* Mobile Menu Toggle */}
-        <div className="md:hidden">
-          <button
-            onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
-            className="text-gray-300 hover:text-white focus:outline-none"
-          >
-            <svg
-              className="h-8 w-8"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d={isMobileMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"}
-              />
-            </svg>
+        <div className="md:hidden flex items-center gap-4">
+          <span className="h-10 w-10 flex justify-center items-center bg-white rounded-full">
+            <IoPerson size={20} className="text-[#1e3a8a]" />
+          </span>
+          <button className="text-white" onClick={toggleMenu}>
+            {menuOpen ? <MdClose size={28} /> : <HiOutlineMenuAlt3 size={28} />}
           </button>
         </div>
       </div>
 
       {/* Mobile Menu */}
-      {isMobileMenuOpen && (
-        <div className="md:hidden bg-gray-800 border-t border-gray-700">
-          <div className="flex flex-col items-center py-4 space-y-4">
-            {sections.map((section, index) => (
+      {menuOpen && (
+        <div className="md:hidden bg-white shadow-md">
+          {["Home", "Services", "Our Work", "Team", "Contact", "About Us"].map(
+            (section, index) => (
               <a
                 key={index}
                 href={`#${section.toLowerCase().replace(/\s+/g, "-")}`}
-                className="text-white hover:text-blue-400 transition duration-300 text-lg"
-                onClick={() => setMobileMenuOpen(false)} // Close menu on click
+                className="block px-6 py-3 text-[#1e3a8a] hover:bg-gray-100 text-lg" // Increased text size here
+                onClick={() => setMenuOpen(false)} // Close menu on click
               >
                 {section}
               </a>
-            ))}
-            <a
-              href="#register"
-              className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-6 rounded-full shadow-md transition duration-300"
-            >
-              Register
-            </a>
-          </div>
+            )
+          )}
         </div>
       )}
-    </nav>
+    </div>
   );
 }
 

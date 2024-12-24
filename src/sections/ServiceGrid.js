@@ -1,52 +1,24 @@
-import React from "react";
+import React, { useContext } from "react";
 import ServiceCard from "../components/ServiceCard";
-import logo from "../assets/logo.png"; // Import the logo
+import { OsamContext } from "../context/Context";
 
-const services = [
-  {
-    name: "Web Development",
-    description: "Building responsive, user-friendly websites tailored to your needs.",
-    icon: logo, // Use the imported logo
-    link: "/services/web-development", // Replace with the actual link
-  },
-  {
-    name: "SEO Optimization",
-    description: "Improving your website's visibility on search engines with cutting-edge techniques.",
-    icon: logo, // Replace with actual path
-    link: "/services/seo-optimization",
-  },
-  {
-    name: "Mobile App Development",
-    description: "Creating high-performance mobile apps to grow your business.",
-    icon: logo, // Replace with actual path
-    link: "/services/mobile-app-development",
-  },
-  {
-    name: "Digital Marketing",
-    description: "Boosting your brand with effective online marketing strategies.",
-    icon: logo, // Replace with actual path
-    link: "/services/digital-marketing",
-  },
-  {
-    name: "Web Development",
-    description: "Building responsive, user-friendly websites tailored to your needs.",
-    icon: logo, // Replace with actual path
-    link: "/services/web-development", // Replace with actual link
-  },
-  {
-    name: "SEO Optimization",
-    description: "Improving your website's visibility on search engines with cutting-edge techniques.",
-    icon: logo, // Replace with actual path
-    link: "/services/seo-optimization",
-  }
-];
 
 function ServiceGrid() {
+
+  const {services} = useContext(OsamContext)
   return (
-    <div className="flex flex-wrap justify-center gap-y-8 p-6">
-      {services.map((service, index) => (
-        <ServiceCard key={index} service={service} />
-      ))}
+    <div className="w-full flex flex-col items-center bg-lightGray py-16">  {/* Updated background color */}
+      {/* Title with black color */}
+      <h1 className="text-center text-3xl sm:text-4xl md:text-5xl font-bold tracking-wide text-white mb-12">
+        We Offer a Wide Range of Industry Services
+      </h1>
+
+      {/* Service Cards Grid with better responsiveness */}
+      <div className="w-full max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-8">
+        {services.map((service, index) => (
+          <ServiceCard key={index} service={service} />
+        ))}
+      </div>
     </div>
   );
 }
