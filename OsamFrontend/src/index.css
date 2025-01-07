@@ -1,0 +1,62 @@
+/* src/App.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom styles for the 3D machine */
+.perspective {
+  perspective: 1000px;
+}
+
+.transform-style-3d {
+  transform-style: preserve-3d;
+}
+
+.rotate-x-20 {
+  transform: rotateX(-20deg);
+}
+
+.rotate-y-20 {
+  transform: rotateY(20deg);
+}
+
+.face {
+  @apply absolute w-[200px] h-[250px] bg-gray-700 border-2 border-teal-500 text-white flex items-center justify-center font-bold;
+}
+
+.front {
+  transform: rotateY(0deg) translateZ(100px);
+}
+
+.back {
+  transform: rotateY(180deg) translateZ(100px);
+}
+
+.left {
+  transform: rotateY(-90deg) translateZ(100px);
+}
+
+.right {
+  transform: rotateY(90deg) translateZ(100px);
+}
+
+.top {
+  transform: rotateX(90deg) translateZ(100px);
+}
+
+.bottom {
+  transform: rotateX(-90deg) translateZ(100px);
+}
+
+@keyframes spin-slow {
+  0% {
+    transform: rotateX(-20deg) rotateY(20deg);
+  }
+  100% {
+    transform: rotateX(-20deg) rotateY(380deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 20s linear infinite;
+}
