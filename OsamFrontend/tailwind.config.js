@@ -8,6 +8,7 @@ module.exports = {
       animation: {
         shine: "shine 1s ease-in-out infinite", // Keeps original shine effect
         borderShine: "borderShine 1.5s ease-in-out infinite", // New shimmer animation for the border
+        glowBlink: "glow 3s ease-in-out infinite",  // Combined glow and blink animation
       },
       keyframes: {
         shine: {
@@ -38,6 +39,18 @@ module.exports = {
           "100%": {
             borderColor: "transparent", // End with no visible border
             boxShadow: "0 0 5px 4px rgba(255, 255, 255, 0.3)", // Subtle glow on all sides
+          },
+        },
+        glow: {
+          "0%, 100%": {
+            boxShadow: "0 0 2px 1.5px rgba(0, 128, 0, 0.8)", // Glow at start and end
+            backgroundColor: "rgba(34, 197, 94, 1)", // bg-green-600
+            opacity: 1, // Fully visible
+          },
+          "50%": {
+            boxShadow: "0 0 0.04px 0.01px rgba(0, 255, 153, 1)", // Brightest glow
+            backgroundColor: "rgba(34, 197, 94, 0.8)", // Slightly faded green
+            opacity: 1, // Slight fade
           },
         },
       },

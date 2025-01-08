@@ -1,0 +1,41 @@
+/* Keyframe for shine effect */
+@keyframes shine {
+  0% {
+    top: 0;
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+/* Shine effect - only visible on hover */
+.group:hover .group-hover\:shine-card {
+  animation: shine 1s ease-in-out forwards;
+  opacity: 0.2;
+}
+
+
+/* Keyframe for animated background glow */
+@keyframes glowEffect {
+  0% {
+    box-shadow: 0 0 5px var(--start-color), 0 0 15px var(--end-color);
+    background-position: 0% 0%;
+  }
+  50% {
+    box-shadow: 0 0 10px var(--start-color), 0 0 25px var(--end-color);
+    background-position: 100% 100%;
+  }
+  100% {
+    box-shadow: 0 0 5px var(--start-color), 0 0 15px var(--end-color);
+    background-position: 0% 0%;
+  }
+}
+
+/* Glow effect on hover */
+.group:hover {
+  animation: glowEffect 2s ease-in-out infinite;
+  background: linear-gradient(15deg, var(--start-color), var(--end-color), var(--start-color));
+  background-size: 200% 200%;
+  box-shadow: 0 0 15px var(--start-color), 0 0 40px var(--end-color);
+}

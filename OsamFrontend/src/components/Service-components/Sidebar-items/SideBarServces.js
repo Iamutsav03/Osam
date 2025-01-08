@@ -75,39 +75,40 @@ const NavServices = () => {
   ];
 
   return (
-    <div
-      className="container mx-auto px-4 py-4 bg-gradient-to-r from-[#0d0d0e] to-[#08111d] text-white"
-      style={{
-        minHeight: "100vh",
-      }}
-    >
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div className="bg-[#0d1117] text-white min-h-screen">
+      <header className="bg-gradient-to-r from-[#161d27] to-[#0d1117] text-gray-100 flex justify-between items-center px-6 py-4 shadow-xl">
+      <h1 className="text-3xl font-extrabold tracking-wide">Services</h1>
+      </header>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
         {services.map((service, index) => (
           <div
             key={index}
-            className="relative flex flex-col items-center bg-white bg-opacity-10 border border-white/20 rounded-md shadow-xl p-6 overflow-hidden transition-transform transform hover:scale-105 hover:shadow-[0_10px_30px_rgba(255,255,255,0.15)] group"
+            className="relative bg-[#161d27] rounded-lg p-6 shadow-lg transition-all transform hover:scale-105 hover:shadow-xl group"
           >
-            {/* Card Icon */}
-            <div className="text-5xl text-white mb-4">{service.icon}</div>
-            {/* Card Content */}
-            <div className="text-center">
-              <h2 className="text-2xl font-extrabold text-white mb-2">{service.name}</h2>
-              <p className="text-sm text-gray-300 mt-2">{service.description}</p>
+            <div className="flex flex-col items-center">
+              {/* Icon */}
+              <div className="text-4xl mb-4 group-hover:scale-110 transition-transform">
+                {service.icon}
+              </div>
+              {/* Service Name */}
+              <h2 className="text-lg font-semibold mb-2 text-white group-hover:text-blue-400 transition-colors">
+                {service.name}
+              </h2>
+              {/* Description */}
+              <p className="text-sm text-gray-400 text-center group-hover:text-gray-300 transition-colors">
+                {service.description}
+              </p>
             </div>
 
-            {/* Hover Effect - Backdrop Blur */}
-            <div className="absolute inset-0 bg-black/40 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0"></div>
+            {/* Animated Glow Border Effect */}
+            <div className="absolute inset-0 border-2 border-solid border-transparent rounded-lg group-hover:border-[#3da077] group-hover:animate-pulse transition-all duration-300 z-10"></div>
 
-            {/* Buttons Section */}
-            <div className="mt-6 w-full flex flex-col space-y-4 z-10">
-              <button
-                className="w-full py-2 bg-gradient-to-r from-[#E0E7FF] to-[#F1F5F9] text-gray-800 font-medium rounded-lg shadow-md hover:shadow-lg transition"
-              >
+            {/* Buttons */}
+            <div className="mt-4 flex flex-col space-y-2">
+              <button className="py-2 text-sm bg-gradient-to-r from-blue-500 to-blue-400 text-white rounded-md hover:from-blue-400 hover:to-blue-500 transition-shadow shadow-md hover:shadow-lg">
                 More Details
               </button>
-              <button
-                className="w-full py-2 bg-gradient-to-r from-[#3B82F6] to-[#6366F1] text-white font-medium rounded-lg shadow-md hover:shadow-lg transition"
-              >
+              <button className="py-2 text-sm bg-gradient-to-r from-green-500 to-green-400 text-white rounded-md hover:from-green-400 hover:to-green-500 transition-shadow shadow-md hover:shadow-lg">
                 Request a Quote
               </button>
             </div>

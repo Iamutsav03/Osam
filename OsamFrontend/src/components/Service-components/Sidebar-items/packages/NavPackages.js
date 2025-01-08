@@ -39,29 +39,30 @@ function NavPackages() {
   };
 
   return (
-    <div className="bg-black min-h-screen text-white font-sans">
+    <div className="bg-gradient-to-br from-[#0d1117] to-[#161d27] min-h-screen text-white font-sans">
       {/* Scrollable Nav */}
-      <div className="w-full bg-transparent py-1 border-b border-white">
-      <div className="flex overflow-x-auto space-x-6 py-2 px-6 snap-x snap-mandatory scrollbar-hide">
-  {services.map((service, index) => (
-    <div
-      key={index}
-      className={`flex-none h-1/2 min-w-[200px] bg-black text-white border border-white rounded-sm p-2 flex justify-center items-center text-center cursor-pointer transition-all duration-300 ease-in-out transform hover:scale-105 hover:animate-shine`}
-      style={{
-        background: "linear-gradient(90deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.2) 100%)",
-        backgroundSize: "200% 100%",
-      }}
-      onClick={() => setSelectedItem(service)}
-    >
-      <h3 className="text-lg font-semibold uppercase tracking-wide">{service}</h3>
-    </div>
-  ))}
-</div>
-
+      <div className="w-full bg-transparent py-2 border-b border-white">
+        <div className="flex overflow-x-auto space-x-6 py-2 px-6 snap-x snap-mandatory scrollbar-hide">
+          {services.map((service, index) => (
+            <div
+              key={index}
+              className={`flex-none h-1/2 min-w-[220px] bg-[#0d1117] text-white border border-white rounded-xl p-4 flex justify-center items-center text-center cursor-pointer transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl group relative ${
+                selectedItem === service ? "bg-gradient-to-r from-teal-500 to-teal-700" : "bg-[#0d1117]"
+              } overflow-hidden`}
+              onClick={() => setSelectedItem(service)}
+            >
+              <h3 className="text-lg font-semibold uppercase tracking-wide z-10">
+                {service}
+              </h3>
+              {/* Border Glow on hover */}
+              <div className="absolute inset-0 border-4 border-transparent group-hover:border-teal-400 rounded-xl"></div>
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* Content Section */}
-      <section >
+      <section>
         <div>{renderContent()}</div>
       </section>
 

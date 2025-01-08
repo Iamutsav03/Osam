@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { TiArrowRightThick, TiArrowLeftThick } from "react-icons/ti";
-import { FaBars, FaTimes } from "react-icons/fa";
 import {
+  FaBars,
+  FaTimes,
   FaClipboardList,
   FaBox,
   FaChartLine,
@@ -16,65 +17,60 @@ import Consultation from "./Sidebar-items/Consultation";
 import NavPackages from "./Sidebar-items/packages/NavPackages";
 import FaqSection from "./Sidebar-items/FaqSection";
 
+// Extracted NavItem for reusability
+const NavItem = ({ name, icon, isSelected, onClick, isSidebarOpen }) => (
+  <li
+    className={`flex items-center justify-between gap-4 px-6 py-4 text-zinc-400 hover:text-white cursor-pointer transition-all ${
+      isSelected ? "text-white bg-[#161d27]" : "text-zinc-400"
+    }`}
+    onClick={onClick}
+  >
+    <div className="flex items-center gap-5">
+      <span className="text-xl">{icon}</span>
+      {isSidebarOpen && <span className="text-sm font-medium">{name}</span>}
+    </div>
+    <span
+      className={`h-1 w-1 rounded-full ${
+        isSelected ? "bg-transparent" : "bg-green-600 bg-transparent animate-glowBlink"
+      }`}
+    ></span>
+  </li>
+);
+
+// Extracted Logo for consistency
+const Logo = ({ isSidebarOpen }) => (
+  <div className="flex items-center gap-2">
+    <div className="bg-white rounded-full w-10 h-10 flex justify-center items-center text-blue-600 text-lg font-bold">
+      O
+    </div>
+    {isSidebarOpen && <span className="text-xl font-semibold">OSAM</span>}
+  </div>
+);
+
 function ServiceNavbar() {
   const [selectedItem, setSelectedItem] = useState("Services");
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navItems = [
-    { name: "Services", icon: <FaClipboardList /> },
-    { name: "Packages", icon: <FaBox /> },
-    { name: "Dashboard", icon: <FaChartLine /> },
-    { name: "Consultation", icon: <FaComments /> },
-    { name: "Balance", icon: <FaWallet /> },
+    { name: "Services", icon: <FaClipboardList />, component: <NavServices /> },
+    { name: "Packages", icon: <FaBox />, component: <NavPackages /> },
+    { name: "Dashboard", icon: <FaChartLine />, component: <Dashboard /> },
+    { name: "Consultation", icon: <FaComments />, component: <Consultation /> },
+    { name: "Balance", icon: <FaWallet />, component: <BalanceSection /> },
+    { name: "FAQ", icon: <FaQuestionCircle />, component: <FaqSection /> },
   ];
 
   const renderContent = () => {
-    switch (selectedItem) {
-      case "Services":
-        return <NavServices />;
-      case "Dashboard":
-        return <Dashboard />;
-      case "Consultation":
-        return <Consultation />;
-      case "Balance":
-        return <BalanceSection />;
-      case "Packages":
-        return <NavPackages />;
-      case "FAQ":
-        return <FaqSection />;
-      default:
-        return <NavServices />;
-    }
-  };
-
-  const getSidebarStyle = () => {
-    switch (selectedItem) {
-      case "Consultation":
-        return "bg-[#121A26] text-[#FFFFFF]";
-      case "Services":
-        return "bg-[#2A2E35] text-white";
-      case "Dashboard":
-        return "bg-gradient-to-r from-[#3A4C63] to-[#0A1929] text-white";
-      case "Balance":
-        return "bg-gradient-to-r from-[#2C3E50] to-[#121A26] text-[#E5E7EB]";
-      case "Packages":
-        return "bg-gradient-to-br from-[#6700F1] to-[#00FFCC] text-[#ffffff] shadow-[0_4px_10px_0px_rgba(255,255,255,0.2)] transition-all duration-500";
-      default:
-        return "bg-[#026261] text-white";
-    }
+    const selectedNavItem = navItems.find((item) => item.name === selectedItem);
+    return selectedNavItem?.component || <NavServices />;
   };
 
   return (
-    <div className="flex h-screen">
+    <div className="flex h-screen bg-[#0d1117] text-white">
       {/* Top Bar for Mobile */}
-      <div className="bg-gradient-to-r from-[#026261] to-[#043d3b] text-white flex items-center justify-between px-4 py-3 md:hidden">
-        <div className="flex items-center gap-2">
-          <div className="bg-white rounded-full w-8 h-8 flex justify-center items-center text-[#026261] text-lg font-bold">
-            O
-          </div>
-          <span className="text-lg font-semibold">OSAM</span>
-        </div>
+      <div className="flex items-center justify-between px-4 py-3 md:hidden">
+        <Logo isSidebarOpen={true} />
         <button
           className="text-2xl"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -84,103 +80,59 @@ function ServiceNavbar() {
       </div>
 
       {/* Sidebar for Larger Screens */}
-      <div className="flex">
-        <div
-          className={`flex flex-col items-center top-0 left-0 h-full ${
-            isSidebarOpen ? "w-48" : "w-16"
-          } transition-all duration-300 ease-in-out ${getSidebarStyle()}`}
-        >
-          {/* Company Logo/Name */}
-          <div className="p-4 flex items-center justify-between w-full">
-            <div className="flex items-center gap-2">
-              {isSidebarOpen && (
-                <div className="bg-white rounded-full w-10 h-10 flex justify-center items-center text-[#026261] text-lg font-bold">
-                  O
-                </div>
-              )}
-              {isSidebarOpen && (
-                <span className="text-xl font-semibold text-white">OSAM</span>
-              )}
-            </div>
-            <button
-              className="text-white focus:outline-none text-2xl"
-              onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-            >
-              {isSidebarOpen ? <TiArrowLeftThick /> : <TiArrowRightThick />}
-            </button>
-          </div>
-
-          {/* Navigation Items */}
-          <ul className="flex-1 space-y-4 mt-4 w-full">
-            {navItems.map((item, index) => (
-              <li
-                key={index}
-                className={`flex items-center gap-4 px-4 py-2 hover:bg-[#034946] rounded-md cursor-pointer transition-all ease-in-out duration-200 ${
-                  selectedItem === item.name ? "bg-[#034946]" : ""
-                }`}
-                onClick={() => setSelectedItem(item.name)}
-              >
-                <span className="text-xl">{item.icon}</span>
-                {isSidebarOpen && (
-                  <span className="text-sm font-medium">{item.name}</span>
-                )}
-              </li>
-            ))}
-          </ul>
-
-          {/* FAQ Option - Positioned at the Bottom */}
-          <div className="mt-auto p-4 border-t border-gray-600 w-full">
-            <div
-              className="flex items-center gap-4 cursor-pointer hover:bg-[#034946] p-2 rounded-md transition-all ease-in-out duration-200"
-              onClick={() => setSelectedItem("FAQ")}
-            >
-              <span className="text-xl">
-                <FaQuestionCircle />
-              </span>
-              {isSidebarOpen && (
-                <span className="text-sm font-medium">FAQ</span>
-              )}
-            </div>
-          </div>
+      <div
+        className={`flex flex-col h-full ${
+          isSidebarOpen ? "w-48" : "w-24"
+        } transition-all duration-300`}
+      >
+        <div className="p-4 flex items-center justify-between w-full">
+          <Logo isSidebarOpen={isSidebarOpen} />
+          <button
+            className="text-white text-2xl"
+            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+          >
+            {isSidebarOpen ? <TiArrowLeftThick /> : <TiArrowRightThick />}
+          </button>
         </div>
 
-        {/* Mobile Menu */}
-        {isMobileMenuOpen && (
-          <div className="bg-gradient-to-r from-[#026261] to-[#043d3b] text-white w-full absolute z-50 md:hidden">
-            <ul className="space-y-4 p-4">
-              {navItems.map((item, index) => (
-                <li
-                  key={index}
-                  className="flex items-center gap-4 px-4 py-2 hover:bg-[#034946] rounded-md cursor-pointer"
-                  onClick={() => {
-                    setSelectedItem(item.name);
-                    setIsMobileMenuOpen(false);
-                  }}
-                >
-                  <span className="text-xl">{item.icon}</span>
-                  <span className="text-sm font-medium">{item.name}</span>
-                </li>
-              ))}
-              {/* Mobile FAQ Item */}
-              <li
-                className="flex items-center gap-4 px-4 py-2 hover:bg-[#034946] rounded-md cursor-pointer"
+        {/* Navigation Items */}
+        <ul className="flex-1 space-y-5 mt-4 w-full">
+          {navItems.map((item, index) => (
+            <NavItem
+              key={index}
+              name={item.name}
+              icon={item.icon}
+              isSelected={selectedItem === item.name}
+              onClick={() => setSelectedItem(item.name)}
+              isSidebarOpen={isSidebarOpen}
+            />
+          ))}
+        </ul>
+      </div>
+
+      {/* Mobile Menu */}
+      {isMobileMenuOpen && (
+        <div className="absolute top-0 left-0 w-full bg-blue-600 text-white z-50 p-4 md:hidden">
+          <ul className="space-y-4">
+            {navItems.map((item, index) => (
+              <NavItem
+                key={index}
+                name={item.name}
+                icon={item.icon}
+                isSelected={selectedItem === item.name}
                 onClick={() => {
-                  setSelectedItem("FAQ");
+                  setSelectedItem(item.name);
                   setIsMobileMenuOpen(false);
                 }}
-              >
-                <span className="text-xl">
-                  <FaQuestionCircle />
-                </span>
-                <span className="text-sm font-medium">FAQ</span>
-              </li>
-            </ul>
-          </div>
-        )}
-      </div>
-      <div className="w-full bg-green-800 h-full overflow-y-auto">
-        {renderContent()}
-      </div>
+                isSidebarOpen={true}
+              />
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {/* Content Area */}
+      <div className="flex-1 overflow-y-auto">{renderContent()}</div>
     </div>
   );
 }

@@ -31,21 +31,23 @@ const FaqSection = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-[#F4F7FB] to-[#E5ECF0] p-8 text-gray-900">
-      <h2 className="text-4xl font-semibold text-center text-[#4C6F9A] mb-8">
+    <div className="bg-gradient-to-br from-[#0d1117] to-[#161d27] min-h-screen text-white font-sans">
+      <h2 className="text-4xl font-semibold text-center text-[#A6E3E9] mb-8 flex items-center justify-center mt-20">
         FAQ Section
       </h2>
       <div className="space-y-6 max-w-3xl mx-auto">
         {faqs.map((faq, index) => (
           <div
             key={index}
-            className="faq-card bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out transform hover:scale-105"
+            className="faq-card bg-[#1e1e1e] p-6 rounded-lg shadow-xl hover:shadow-2xl transition-all duration-300 ease-in-out transform hover:scale-105 hover:bg-[#252b37]"
           >
             <div
               className="faq-header flex justify-between items-center cursor-pointer"
               onClick={() => toggleAccordion(index)}
             >
-              <h3 className="text-xl font-semibold text-[#3B4D6B]">{faq.question}</h3>
+              <h3 className="text-xl font-semibold text-[#A6E3E9] transition-all duration-200 ease-in-out hover:text-[#F1A7F2]">
+                {faq.question}
+              </h3>
               <span
                 className={`text-2xl font-semibold transition-transform duration-300 transform ${
                   activeIndex === index ? "rotate-180" : ""
@@ -55,11 +57,22 @@ const FaqSection = () => {
               </span>
             </div>
             {activeIndex === index && (
-              <p className="mt-4 text-base text-gray-700">{faq.answer}</p>
+              <p className="mt-4 text-base text-[#A6E3E9] text-opacity-80">{faq.answer}</p>
             )}
           </div>
         ))}
       </div>
+
+      {/* Custom Styles for Scrollbar */}
+      <style jsx>{`
+        .scrollbar-hide::-webkit-scrollbar {
+          display: none;
+        }
+        .scrollbar-hide {
+          -ms-overflow-style: none; /* IE and Edge */
+          scrollbar-width: none; /* Firefox */
+        }
+      `}</style>
     </div>
   );
 };
